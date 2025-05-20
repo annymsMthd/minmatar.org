@@ -6,13 +6,14 @@ WORKDIR /app
 COPY app/package.json app/package-lock.json ./
 
 FROM base AS prod-deps
-RUN npm install --production
+RUN npm ci --production
 
 FROM base AS build-deps
-RUN npm install --production=false
+RUN npm ci --production=false
 
 FROM build-deps AS build
 COPY app/ .
+
 ENV NODE_OPTIONS=--max_old_space_size=4096
 RUN npm run prodbuild
 
