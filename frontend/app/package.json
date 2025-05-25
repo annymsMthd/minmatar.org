@@ -15,7 +15,7 @@
     "push": "drizzle-kit push",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "export $(cat .env.BUILDONLY) && vitest",
+    "test": "DEBUG=vitest export $(cat .env.BUILDONLY) && vitest",
     "coverage": "export $(cat .env.BUILDONLY) && vitest run --coverage",
     "test-ui": "export $(cat .env.BUILDONLY) && vitest --ui --coverage.enabled=true",
     "test-ci": "export $(cat .env.BUILDONLY) && vitest run --coverage --coverage.reporter=json --coverage.reportsDirectory=/artifacts/coverage --reporter=json --reporter=default --outputFile=/artifacts/front-end-unit"
@@ -30,7 +30,7 @@
     "@justinribeiro/lite-youtube": "^1.5.0",
     "@midudev/tailwind-animations": "^0.0.7",
     "@sentry/astro": "^7.110.0",
-    "@toast-ui/editor": "^3.1.0",
+    "@toast-ui/editor": "^3.2.2",
     "@toast-ui/editor-plugin-code-syntax-highlight": "^3.1.0",
     "@types/alpinejs": "^3.13.5",
     "@types/marked": "^6.0.0",
@@ -52,7 +52,12 @@
     "tailwindcss": "^3.3.6",
     "tippy.js": "^6.3.7",
     "typescript": "^5.3.2",
+    "vite": "^6.3.5",
     "web-push": "^3.6.7"
+  },
+  "overrides": {
+    "dompurify": "3.2.6",
+    "esbuild": "0.25.4"
   },
   "devDependencies": {
     "@types/gtag.js": "^0.0.20",

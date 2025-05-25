@@ -7,3 +7,52 @@ services:
     command: npm run test-ci
     volumes:
       - "./artifacts:/artifacts"
+
+  db:
+    volumes:
+      - ./testing/sql:/docker-entrypoint-initdb.d
+    ports: []
+    networks:
+      - test-network
+
+  redis:
+    networks:
+      - test-network
+    volumes: []
+
+  app:
+    networks:
+      - test-network
+
+  frontend:
+    networks:
+      - test-network
+    ports: []
+    volumes:
+      - "./frontend/app/src/data:/app/src/data"
+
+  proxy:
+    ports: []
+    networks:
+      test-network:
+        aliases:
+          - testing.minmatar.org
+
+  end-to-end:
+    build:
+      context: ./testing/endtoend
+      dockerfile: Dockerfile
+    environment:
+      - BASE_URL=http://testing.minmatar.org
+    depends_on:
+      - proxy
+    networks:
+      - test-network
+
+volumes:
+  database: {}
+  redis: {}
+  murmur_data: {}
+
+networks:
+  test-network:
